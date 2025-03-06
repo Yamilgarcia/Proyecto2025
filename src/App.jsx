@@ -1,35 +1,49 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import './App.css'; // Asegúrate de importar los estilos
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [horas, setHoras] = useState(0);
+  const [pagoPorHora, setPagoPorHora] = useState(0);
+  const [salario, setSalario] = useState(0);
+
+  const calcularSalario = () => {
+    const totalSalario = horas * pagoPorHora;
+    setSalario(totalSalario);
+  };
 
   return (
-    <>
+    <div className="App">
+      <h1>Calculadora de Salario Mensual</h1>
+
       <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <label htmlFor="horas">Horas trabajadas: </label>
+        <input
+          id="horas"
+          type="number"
+          value={horas}
+          onChange={(e) => setHoras(e.target.value)}
+        />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+
+      <div>
+        <label htmlFor="pago">Pago por hora: </label>
+        <input
+          id="pago"
+          type="number"
+          value={pagoPorHora}
+          onChange={(e) => setPagoPorHora(e.target.value)}
+        />
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+
+      <button onClick={calcularSalario}>Calcular Salario</button>
+
+      {salario > 0 && (
+        <div>
+          <h2>El salario mensual es: ${salario}</h2>
+        </div>
+      )}
+    </div>
+  );
 }
 
-export default App
+export default App;
